@@ -1,4 +1,5 @@
 #include <string>
+#include <algorithm>
 
 int process_line(std::string line) {
 
