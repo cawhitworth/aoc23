@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     int total = 0;
 
     for(std::string line; std::getline(input, line); ) {
-        auto line_checksum = process_line(line);
+        auto line_checksum = process_line_part2(line);
         total += line_checksum;
     }
     std::cout << "Day1: " << total << std::endl;
