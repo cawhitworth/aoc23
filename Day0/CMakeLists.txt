@@ -1,0 +1,1 @@
+add_executable(day0 main.cc)
