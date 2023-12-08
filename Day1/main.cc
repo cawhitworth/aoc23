@@ -1,8 +1,18 @@
 #include <iostream>
+#include <fstream>
+#include "day1.h"
 
-int main(void)
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!" << std::endl;
+    std::ifstream input { argv[1] };
+    
+    int total = 0;
+
+    for(std::string line; std::getline(input, line); ) {
+        auto line_checksum = process_line(line);
+        total += line_checksum;
+    }
+    std::cout << "Day1: " << total << std::endl;
     return 0;
 }
 
