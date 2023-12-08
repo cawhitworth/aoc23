@@ -4,5 +4,8 @@ project(aoc23)
 
 add_subdirectory(lib/Catch2)
 
+include(CTest)
+include(Catch)
+
 add_subdirectory(Day0)
 add_subdirectory(Day1)
