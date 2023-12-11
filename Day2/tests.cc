@@ -9,7 +9,7 @@ const char* SampleInput[] = {
     "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
 };
 
-TEST_CASE("Test equality - day 3")
+TEST_CASE("Day 2: Test equality")
 {
     Game g1 { 1 };
     g1.draws.emplace_back(1,2,3);
@@ -22,8 +22,13 @@ TEST_CASE("Test equality - day 3")
     REQUIRE(g1 == g2);
 }
 
-TEST_CASE("Parse input line 1 - day 3")
+TEST_CASE("Day 2: Parse input line 1")
 {
+    Game expected;
+    expected.number = 1;
+    expected.draws.emplace_back(4, 0, 3);
+    expected.draws.emplace_back(1, 2, 6);
+    expected.draws.emplace_back(0, 2, 0);
     auto g = parse_line(SampleInput[0]);
-    REQUIRE(g.number == 1);
+    REQUIRE(expected == g);
 }
