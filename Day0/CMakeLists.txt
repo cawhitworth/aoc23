@@ -9,7 +9,7 @@ add_executable(day0_tests
 
 target_link_libraries(day0_tests PRIVATE Catch2::Catch2WithMain)
 
-target_compile_features(day0 PRIVATE cxx_std_17)
-target_compile_features(day0_tests PRIVATE cxx_std_17)
+target_compile_features(day0 PRIVATE cxx_std_20)
+target_compile_features(day0_tests PRIVATE cxx_std_20)
 
 catch_discover_tests(day0_tests)
