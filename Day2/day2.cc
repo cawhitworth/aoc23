@@ -3,23 +3,8 @@
 #include <regex>
 #include <algorithm>
 
+#include <utils.h>
 #include "day2.h"
-
-std::vector<std::string> split_string(const std::string& s, const char c)
-{
-    std::vector<std::string> result;
-
-    size_t pos = 0, prev = 0;
-    while((pos = s.find(c, pos)) != std::string::npos) {
-        result.push_back(s.substr(prev, pos - prev));
-        pos ++;
-        prev = pos;
-
-    }
-    result.push_back(s.substr(prev, pos));
-
-    return result;
-}
 
 Game parse_line(const std::string& line)
 {
