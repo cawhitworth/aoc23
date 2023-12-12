@@ -35,10 +35,38 @@ TEST_CASE("Day 2: Parse input line 1")
 
 TEST_CASE("Day 2: Games are possible")
 {
-    Draw bag(12, 13, 14);
+    BallSet bag(12, 13, 14);
     bool expected[] = { true, true, false, false, true };
     auto i = GENERATE(range(0, 5));
     auto game = parse_line(SampleInput[i]);
     CAPTURE(SampleInput[i]);
     REQUIRE(possible_game(game, bag) == expected[i]);
+}
+
+TEST_CASE("Day 2: Minimum possible")
+{
+    BallSet minimums[] = 
+    {
+        BallSet { 4, 2, 6 },
+        BallSet { 1, 3, 4},
+        BallSet { 20, 13, 6},
+        BallSet { 14, 3, 15},
+        BallSet { 6, 3, 2}
+     };
+
+    auto i = GENERATE(range(0,5));
+    auto game = parse_line(SampleInput[i]);
+    CAPTURE(SampleInput[i]);
+    REQUIRE(minimum_possible(game) == minimums[i]);
+}
+
+TEST_CASE("Day 2: Power")
+{
+    int power = 0;
+    for(auto l: SampleInput) {
+        auto g = parse_line(l);
+        auto bs = minimum_possible(g);
+        power += bs.power();
+    }
+    REQUIRE(power == 2286);
 }

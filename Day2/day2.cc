@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <regex>
 #include <algorithm>
 
@@ -23,7 +24,7 @@ std::vector<std::string> split_string(const std::string& s, const char c)
 Game parse_line(const std::string& line)
 {
     Game g;
-    static std::regex re_game_line("Game (\\d)+:(.*)");
+    static std::regex re_game_line("Game (\\d+):(.*)");
     std::smatch mr;
     if (!std::regex_match(line, mr, re_game_line)) {
         g.number = -1;
@@ -36,7 +37,7 @@ Game parse_line(const std::string& line)
 
     static std::regex re_ball("(\\d+) (red|green|blue)");
     for(auto draw_string: draws) {
-        Draw draw;
+        BallSet draw;
         auto balls = split_string(draw_string, ',');
         for(auto ball: balls) {
             if (!std::regex_search(ball, mr, re_ball)) {
@@ -61,7 +62,7 @@ Game parse_line(const std::string& line)
     return g;
 }
 
-bool possible_game(const Game& g, const Draw& bag)
+bool possible_game(const Game& g, const BallSet& bag)
 {
     for (auto d: g.draws) {
         if (d.red > bag.red ||
@@ -74,13 +75,36 @@ bool possible_game(const Game& g, const Draw& bag)
     return true;
 }
 
-bool operator==(const Draw& lhs, const Draw& rhs) {
+BallSet minimum_possible(const Game& g)
+{
+    BallSet minimum;
+    for(auto draw: g.draws) {
+        if (draw.red > minimum.red) {
+            minimum.red = draw.red;
+        }
+        if (draw.green > minimum.green) {
+            minimum.green = draw.green;
+        }
+        if (draw.blue > minimum.blue) {
+            minimum.blue = draw.blue;
+        }
+    }
+    return minimum;
+}
+
+std::ostream& operator<<(std::ostream& os, const BallSet& ballset)
+{
+    os << "BallSet { Red: " << ballset.red << ", Green: " << ballset.green << ", Blue: " << ballset.blue << "}";
+    return os;
+}
+
+bool operator==(const BallSet& lhs, const BallSet& rhs) {
     return lhs.red == rhs.red &&
            lhs.green == rhs.green &&
            lhs.blue == rhs.blue;
 }
 
-bool operator!=(const Draw& lhs, const Draw& rhs) {
+bool operator!=(const BallSet& lhs, const BallSet& rhs) {
     return !(lhs == rhs);
 }
 
