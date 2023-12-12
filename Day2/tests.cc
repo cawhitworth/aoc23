@@ -1,4 +1,4 @@
-#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_all.hpp>
 #include "day2.h"
 
 const char* SampleInput[] = {
@@ -31,4 +31,14 @@ TEST_CASE("Day 2: Parse input line 1")
     expected.draws.emplace_back(0, 2, 0);
     auto g = parse_line(SampleInput[0]);
     REQUIRE(expected == g);
+}
+
+TEST_CASE("Day 2: Games are possible")
+{
+    Draw bag(12, 13, 14);
+    bool expected[] = { true, true, false, false, true };
+    auto i = GENERATE(range(0, 5));
+    auto game = parse_line(SampleInput[i]);
+    CAPTURE(SampleInput[i]);
+    REQUIRE(possible_game(game, bag) == expected[i]);
 }

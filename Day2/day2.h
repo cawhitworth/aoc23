@@ -5,7 +5,7 @@
 
 struct Draw {
     Draw() : red(0), green(0), blue(0) {}
-    Draw(int r, int g, int b) : red(r), green(g), blue(b) {}
+    Draw(const int r, const int g, const int b) : red(r), green(g), blue(b) {}
 
     int red;
     int blue;
@@ -18,7 +18,7 @@ bool operator!=(const Draw& lhs, const Draw& rhs);
 
 struct Game {
     Game() {}
-    Game(int n) : number(n) {}
+    Game(const int n) : number(n) {}
 
     int number;
     std::vector<Draw> draws;
@@ -26,4 +26,6 @@ struct Game {
 
 bool operator==(const Game&, const Game&);
 
-Game parse_line(std::string line);
+Game parse_line(const std::string& line);
+
+bool possible_game(const Game& g, const Draw& bag);

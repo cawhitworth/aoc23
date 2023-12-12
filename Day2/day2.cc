@@ -4,7 +4,7 @@
 
 #include "day2.h"
 
-std::vector<std::string> split_string(std::string s, char c)
+std::vector<std::string> split_string(const std::string& s, const char c)
 {
     std::vector<std::string> result;
 
@@ -20,7 +20,7 @@ std::vector<std::string> split_string(std::string s, char c)
     return result;
 }
 
-Game parse_line(std::string line)
+Game parse_line(const std::string& line)
 {
     Game g;
     static std::regex re_game_line("Game (\\d)+:(.*)");
@@ -34,7 +34,7 @@ Game parse_line(std::string line)
 
     auto draws = split_string(mr[2], ';');
 
-    static std::regex re_ball("(\\d)+ (red|green|blue)");
+    static std::regex re_ball("(\\d+) (red|green|blue)");
     for(auto draw_string: draws) {
         Draw draw;
         auto balls = split_string(draw_string, ',');
@@ -59,6 +59,19 @@ Game parse_line(std::string line)
     }
 
     return g;
+}
+
+bool possible_game(const Game& g, const Draw& bag)
+{
+    for (auto d: g.draws) {
+        if (d.red > bag.red ||
+            d.green > bag.green ||
+            d.blue > bag.blue) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 bool operator==(const Draw& lhs, const Draw& rhs) {
