@@ -15,16 +15,16 @@ std::vector<std::string> sampleInput = {
 };
 
 Part numbers[] = {
-    Part { 467, 0, 0 },
-    Part { 114, 5, 0 },
-    Part { 35, 2, 2 },
-    Part { 633, 6, 2 },
-    Part { 617, 0, 4 },
-    Part { 58, 7, 5 },
-    Part { 592, 2, 6 },
-    Part { 755, 6, 7 },
-    Part { 664, 1, 9 },
-    Part { 598, 5, 9 }
+    Part { "467", 0, 0 },
+    Part { "114", 5, 0 },
+    Part { "35", 2, 2 },
+    Part { "633", 6, 2 },
+    Part { "617", 0, 4 },
+    Part { "58", 7, 5 },
+    Part { "592", 2, 6 },
+    Part { "755", 6, 7 },
+    Part { "664", 1, 9 },
+    Part { "598", 5, 9 }
 };
 
 Symbol symbols[] = {
@@ -56,4 +56,43 @@ TEST_CASE( "Day 3: Schematic parse: symbols")
     CAPTURE(s.symbols[i].x);
     CAPTURE(s.symbols[i].y);
     REQUIRE(s.symbols[i] == symbols[i]);
+}
+
+TEST_CASE( "Day 3: Overlaps" )
+{
+    Part p { "1234", 3, 7 };
+    REQUIRE(p.in_expanded_bounds(0,0) == false);
+    REQUIRE(p.in_expanded_bounds(3,7) == true);
+    REQUIRE(p.in_expanded_bounds(2,7) == true);
+    REQUIRE(p.in_expanded_bounds(2,6) == true);
+    REQUIRE(p.in_expanded_bounds(6,7) == true);
+    REQUIRE(p.in_expanded_bounds(7,7) == true);
+    REQUIRE(p.in_expanded_bounds(7,8) == true);
+    REQUIRE(p.in_expanded_bounds(8,7) == false);
+}
+
+TEST_CASE( "Day 3: Not parts")
+{
+    Schematic s = parse_input(sampleInput);
+    auto not_parts = s.not_parts();
+
+    REQUIRE(not_parts.size() == 2);
+    REQUIRE(not_parts[0].number == "114" );
+    REQUIRE(not_parts[1].number == "58" );
+}
+
+TEST_CASE( "Day 3: Parts")
+{
+    Schematic s = parse_input(sampleInput);
+    auto not_parts = s.actual_parts();
+
+    REQUIRE(not_parts.size() == 8);
+    REQUIRE(not_parts[0].number == "467" );
+    REQUIRE(not_parts[1].number == "35" );
+    REQUIRE(not_parts[2].number == "633" );
+    REQUIRE(not_parts[3].number == "617" );
+    REQUIRE(not_parts[4].number == "592" );
+    REQUIRE(not_parts[5].number == "755" );
+    REQUIRE(not_parts[6].number == "664" );
+    REQUIRE(not_parts[7].number == "598" );
 }

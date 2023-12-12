@@ -7,9 +7,11 @@
 struct Part
 {
     Part() {}
-    Part(int number, int x, int y) : number(number), x(x), y(y) {}
+    Part(std::string number, int x, int y) : number(number), x(x), y(y) {}
 
-    int number;
+    bool in_expanded_bounds(int x, int y);
+
+    std::string number;
     int x;
     int y;
 };
@@ -31,6 +33,9 @@ bool operator==(const Symbol& lhs, const Symbol& rhs);
 struct Schematic
 {
     Schematic() {}
+
+    std::vector<Part> actual_parts();
+    std::vector<Part> not_parts();
 
     std::vector<Part> parts;
     std::vector<Symbol> symbols;
