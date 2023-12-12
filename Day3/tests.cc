@@ -96,3 +96,12 @@ TEST_CASE( "Day 3: Parts")
     REQUIRE(not_parts[6].number == "664" );
     REQUIRE(not_parts[7].number == "598" );
 }
+
+TEST_CASE( "Day 3: Gear ratios")
+{
+    Schematic s = parse_input(sampleInput);
+    auto ratios = s.gear_ratios();
+    REQUIRE(ratios.size() == 2);
+    REQUIRE(ratios[0] == 16345);
+    REQUIRE(ratios[1] == 451490);
+}

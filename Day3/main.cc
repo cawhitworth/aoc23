@@ -16,8 +16,11 @@ int main(int argc, char* argv[])
 
     int total = 0;
     auto s = parse_input(lines);
-    for(auto p: s.actual_parts()) {
-        total += std::stoi(p.number);
+    // for(auto p: s.actual_parts()) {
+    //     total += std::stoi(p.number);
+    // }
+    for(auto g: s.gear_ratios()) {
+        total += g;
     }
 
     std::cout << "Result: " << total << std::endl;

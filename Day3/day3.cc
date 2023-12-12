@@ -64,6 +64,29 @@ Schematic parse_input(const std::span<std::string>& input)
     return result;
 }
 
+std::vector<int> Schematic::gear_ratios() {
+    std::vector<int> result;
+    for(auto s: this->symbols) {
+        if (s.c != '*') {
+            continue;
+        }
+
+        std::vector<Part> adjacents;
+        for(auto p: this->parts) {
+            if (p.in_expanded_bounds(s.x, s.y)) {
+                adjacents.push_back(p);
+            }
+        }
+        if (adjacents.size() == 2) {
+            int gear_1 = std::stoi(adjacents[0].number);
+            int gear_2 = std::stoi(adjacents[1].number);
+            result.push_back(gear_1 * gear_2);
+        }
+    }
+
+    return result;
+}
+
 std::vector<Part> Schematic::actual_parts() {
     std::vector<Part> result;
 

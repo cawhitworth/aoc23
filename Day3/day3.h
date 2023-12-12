@@ -34,6 +34,7 @@ struct Schematic
 {
     Schematic() {}
 
+    std::vector<int> gear_ratios();
     std::vector<Part> actual_parts();
     std::vector<Part> not_parts();
 
