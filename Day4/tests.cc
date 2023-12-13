@@ -29,3 +29,21 @@ TEST_CASE("Day 4: scores")
     Card c(SampleInput[i]);
     REQUIRE(c.score() == expected[i]);
 }
+
+TEST_CASE("Day 4: Matches")
+{
+    int expected[] = {
+        4, 2, 2, 1, 0, 0
+    };
+    auto i = GENERATE(range(0,6));
+    Card c(SampleInput[i]);
+    REQUIRE(c.matches() == expected[i]);
+}
+
+TEST_CASE("Day 4: Play")
+{
+    std::vector<Card> cards;
+    for(auto l: SampleInput) { cards.emplace_back(l); }
+    auto total = play(cards);
+    REQUIRE(total == 30);
+}
