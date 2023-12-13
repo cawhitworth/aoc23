@@ -33,3 +33,16 @@ std::vector<int> numbers_from(const std::string&s, const char c)
     }
     return result;
 }
+
+std::vector<long long> ll_numbers_from(const std::string&s, const char c)
+{
+    std::vector<long long> result;
+    auto split = split_string(s, c);
+    for(auto s: split) {
+        try {
+            result.push_back(std::stoll(s));
+        }
+        catch (const std::invalid_argument & e) {}
+    }
+    return result;
+}
