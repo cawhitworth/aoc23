@@ -76,5 +76,5 @@ uint64_t winning_ways_quadratic(uint64_t time, uint64_t distance)
     double f_sol = (f_time - std::sqrt(f_det)) / 2;
 
     // Winners are all those between the zero-crossings
-    return 1 + time - 2 * (1 + (int)f_sol );
+    return 1 + time - 2 * (1 + (uint64_t)f_sol );
 }
