@@ -46,7 +46,7 @@ Almanac::Almanac(std::vector<std::string> lines)
         std::smatch sr;
         if (std::regex_match(l, sr, re_map)) {
             if (reading_map) {
-                throw std::exception("Malformed data");
+                throw std::logic_error("Malformed data");
             }
             current_map = Map(sr[1], sr[2]);
             reading_map = true;
@@ -60,7 +60,7 @@ Almanac::Almanac(std::vector<std::string> lines)
             } else {
                 auto numbers = ll_numbers_from(l);
                 if (numbers.size() != 3) {
-                    throw std::exception("Malformed data");
+                    throw std::logic_error("Malformed data");
                 }
                 current_map.ranges.emplace_back(numbers[0], numbers[1], numbers[2]);
             }
