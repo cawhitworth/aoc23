@@ -44,3 +44,22 @@ TEST_CASE( "Day 8 Solving again", "[day8]")
     int steps = m.solve();
     REQUIRE(steps == 6);
 }
+
+std::vector<std::string> SampleInput3 = {
+    "11A = (11B, XXX)",
+    "11B = (XXX, 11Z)",
+    "11Z = (11B, XXX)",
+    "22A = (22B, XXX)",
+    "22B = (22C, 22C)",
+    "22C = (22Z, 22Z)",
+    "22Z = (22B, 22B)",
+    "XXX = (XXX, XXX)"
+};
+
+TEST_CASE( "Day 8 Solving part 2", "[day8]")
+{
+    Map m("LR", SampleInput3);
+
+    int steps = m.solve2();
+    REQUIRE(steps == 6);
+}

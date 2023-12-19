@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-    std::ifstream input { argv[1] };
+    std::ifstream input { "/home/chris/source/aoc23/Day8/input"};//argv[1] };
     
     std::string directions;
     std::getline(input, directions);
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     Map m(directions, nodes);
 
-    std::cout << "Result: " << m.solve() << std::endl;
+    std::cout << "Result: " << m.solve2() << std::endl;
     return 0;
 }
 
