@@ -13,10 +13,15 @@ enum HandType {
 };
 
 struct Hand {
+    explicit Hand();
     static Hand from(std::string line);
-    Hand(std::string cards, int bid);
+    static Hand from_with_jokers(std::string line);
+    explicit Hand(std::string cards, int bid, bool withJokers = false);
 
-    HandType type();
+    HandType type() const;
+
+    static bool compare(const Hand& lhs, const Hand& rhs);
+    static bool compare_with_jokers(const Hand& lhs, const Hand& rhs);
 
     std::string hand;
     std::map<int, int> cards;
