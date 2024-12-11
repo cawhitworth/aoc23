@@ -145,3 +145,35 @@ TEST_CASE("Day 7: Comparisons - ordering with jokers (part 2)")
 
     REQUIRE(score == 5905);
 }
+
+TEST_CASE("Day 7: Comparisons - breaking ties with jokers (part 2)")
+{
+    auto hand1 = Hand::from_with_jokers("JKKK2 1");
+    auto hand2 = Hand::from_with_jokers("QQQQ2 1");
+    auto hand3 = Hand::from_with_jokers("KJJQJ 1");
+
+    REQUIRE(hand1.type() == FourKind);
+    REQUIRE(hand2.type() == FourKind);
+    REQUIRE(hand3.type() == FourKind);
+
+    REQUIRE(Hand::compare_with_jokers(hand1, hand2));
+    REQUIRE(Hand::compare_with_jokers(hand1, hand3));
+    REQUIRE(Hand::compare_with_jokers(hand2, hand3));
+}
+
+TEST_CASE("Day 7: Comparisons - hand types with jokers (part 2)")
+{
+    auto hand1 = Hand::from_with_jokers("KKQQQ 1");
+    auto hand2 = Hand::from_with_jokers("JJKQA 1");
+    auto hand3 = Hand::from_with_jokers("JKQA9 1");
+    auto hand4 = Hand::from_with_jokers("JJJQA 1");
+    auto hand5 = Hand::from_with_jokers("JJJJA 1");
+    auto hand6 = Hand::from_with_jokers("JQQAA 1");
+
+    REQUIRE(hand1.type() == FullHouse);
+    REQUIRE(hand2.type() == ThreeKind);
+    REQUIRE(hand3.type() == OnePair);
+    REQUIRE(hand4.type() == FourKind);
+    REQUIRE(hand5.type() == FiveKind);
+    REQUIRE(hand6.type() == FullHouse);
+}

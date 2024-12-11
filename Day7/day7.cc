@@ -66,15 +66,7 @@ Hand::Hand(std::string hand, int bid, bool withJokers)
         cards[c] += 1;
     }
 
-    if (withJokers) {
-        int joker = num_from_card('J');
-        int jokerScore = cards[joker];
-        for(int i=0; i < this->cards.size(); i ++) {
-            if (i == joker) continue;
-            if (cards[i] != 0) cards[i] += jokerScore;
-        }
-    }
-    
+    this->with_jokers = withJokers;
     this->hand = hand;
     this->bid = bid;
 }
@@ -83,13 +75,39 @@ HandType Hand::type() const
 {
     bool three = false;;
     int twos = 0;
+    int joker_card = num_from_card('J');
+    int joker_count = 0;
+
+    if (with_jokers && cards.find(joker_card) != cards.end()) {
+        joker_count = cards.find(joker_card)->second;
+    }
+
     for(auto c: cards) {
+        if (c.second == 0) {
+            continue;
+        }
+
+        // We do care about 5 jokers
         if (c.second == 5) {
             return FiveKind;
         }
+
+        // But in all other cases, jokers are combinatoric
+        if (with_jokers && c.first == joker_card) {
+            continue;
+        }
+
+        if (with_jokers && c.second + joker_count == 5) {
+            return FiveKind;
+        }
+
         if (c.second == 4) {
             return FourKind;
         }
+        if (with_jokers && c.second + joker_count == 4) {
+            return FourKind;
+        }
+
         if (c.second == 3) {
             three = true;
         }
@@ -97,17 +115,34 @@ HandType Hand::type() const
             twos ++;
         }
     }
+
+    // There is no way to get a three _and_ some jokers - so this is only ever a three
     if (three) {
         if (twos != 0) {
             return FullHouse;
         }
         return ThreeKind;
     }
+
     if (twos == 2) {
+        if (with_jokers && joker_count == 1) {
+            return FullHouse;
+        }
         return TwoPair;
     }
     if (twos == 1) {
+        if (with_jokers && joker_count == 1) {
+            return ThreeKind;
+        }
         return OnePair;
+    }
+    if (with_jokers) {
+        switch(joker_count) {
+            case 1: return OnePair;
+            case 2: return ThreeKind;
+            case 3: return FourKind;
+            case 4: return FiveKind;
+        }
     }
     return HighCard;
 }

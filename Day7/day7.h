@@ -23,6 +23,7 @@ struct Hand {
     static bool compare(const Hand& lhs, const Hand& rhs);
     static bool compare_with_jokers(const Hand& lhs, const Hand& rhs);
 
+    bool with_jokers;
     std::string hand;
     std::map<int, int> cards;
     int bid;
