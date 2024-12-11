@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-    std::ifstream input { "/home/chris/source/aoc23/Day8/input"};//argv[1] };
+    std::ifstream input { argv[1] };
     
     std::string directions;
     std::getline(input, directions);

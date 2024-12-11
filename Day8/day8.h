@@ -8,7 +8,7 @@ struct Map
 {
     Map(std::string directions, std::span<std::string> nodes);
     int solve();
-    uint64_t solve2();
+    long long solve2();
     std::string next_step(char step, std::string node);
 
     std::string directions_;

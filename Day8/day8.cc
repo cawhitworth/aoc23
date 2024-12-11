@@ -1,6 +1,7 @@
 #include <regex>
 #include <algorithm>
 #include <numeric>
+#include <iostream>
 #include "day8.h"
 
 Map::Map(std::string directions, std::span<std::string> nodes)
@@ -43,22 +44,24 @@ int Map::solve()
     return count;
 }
 
-uint64_t Map::solve2()
+long long Map::solve2()
 {
     auto step = directions_.begin();
 
-    std::vector<std::string> start_nodes;
+    std::vector<std::string> nodes;
     for(auto n: node_map_)
     {
         if (n.first.ends_with('A')) {
-            start_nodes.push_back(n.first);
+            nodes.push_back(n.first);
         }
     }
 
-    uint64_t total = 1;
-    for(auto n : start_nodes)
+    std::vector<long long> results;
+
+    for(auto n : nodes)
     {
-        int count = 0;
+        step = directions_.begin();
+        long long count = 0;
         while (!n.ends_with('Z')) {
             n = next_step(*step, n);
             step++;
@@ -67,8 +70,12 @@ uint64_t Map::solve2()
             }
             count ++;
         }
-        total *= count;
+        results.push_back(count);
     }
+    for(auto r : results) {
+        std::cout << r << std::endl;
+    }
+    long long answer = std::accumulate(results.begin(), results.end(), 1ll, std::lcm<long long,long long> );
 
-    return total;
+    return answer;
 }
