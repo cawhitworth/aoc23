@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 project(aoc23)
+set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(lib/Catch2)
 
@@ -17,4 +18,5 @@ add_subdirectory(Day4)
 add_subdirectory(Day5)
 add_subdirectory(Day6)
 add_subdirectory(Day7)
+
 add_subdirectory(Day8)

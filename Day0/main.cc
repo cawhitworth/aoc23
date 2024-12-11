@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "day0.h"
 
 int main(int argc, char* argv[])
 {

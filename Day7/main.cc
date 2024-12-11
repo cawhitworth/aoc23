@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <stdint.h>
+#include <algorithm>
 #include "day7.h"
 
 int main(int argc, char* argv[])

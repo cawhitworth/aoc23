@@ -1,7 +1,7 @@
 #include <string>
 #include <map>
 #include <iostream>
-
+#include <algorithm>
 #include "day7.h"
 #include "utils.h"
 
